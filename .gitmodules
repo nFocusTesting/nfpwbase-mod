@@ -1,0 +1,3 @@
+[submodule "nfpwbase"]
+	path = nfpwbase
+	url = https://github.com/nfocustesting/nfpwbase
