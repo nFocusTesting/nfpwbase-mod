@@ -1,0 +1,249 @@
+{
+  "versions": ["1.0", "1.1", "1.2"],
+  "1.0": {
+    "package.json": {
+      "path": ".",
+      "type": "json",
+      "payload": {
+        "devDependencies": {
+          "@eslint/js": "8.57.0",
+          "@playwright/test": "^1.44.0",
+          "@types/node": "^20.12.7",
+          "dotenv": "^16.4.5",
+          "eslint": "8.57.0",
+          "globals": "^15.1.0",
+          "typescript": "5.4.5",
+          "typescript-eslint": "^7.6.0"
+        },
+        "nfBaseVersion": "1.0.0",
+        "type": "module"
+      }
+    }
+  },
+  "1.1": {},
+  "1.2": {
+    "playwright code snippets": {
+      "filename": "playwright.code-snippets",
+      "path": "./.vscode",
+      "type": "json",
+      "payload": {
+        "nFocus Combined Test - Full": {
+          "prefix": "nftest-full",
+          "body": [
+            "import { test } from \"@fixtures/combined\";",
+            "",
+            "test.use({});",
+            "",
+            "test(",
+            "\"$1\",",
+            "{tag: [] },",
+            "asyc ({$2}) => {$3}",
+            ");"
+          ]
+        },
+        "nFocus Combined Test": {
+          "prefix": "nftest",
+          "body": [
+            "test(",
+            "\"$1\",",
+            "{tag: [] },",
+            "asyc ({$2}) => {$3}",
+            ");"
+          ]
+        },
+        "nFocus Combined Test - Full with Expect": {
+          "prefix": "nftestexpect-full",
+          "body": [
+            "import { test, extpect } from \"@fixtures/combined\";",
+            "",
+            "test.use({});",
+            "",
+            "test(",
+            "\"$1\",",
+            "{tag: [] },",
+            "asyc ({$2}) => {$3}",
+            ");"
+          ]
+        },
+        "Create a Component Object Model (COM)": {
+          "scope": "typescript",
+          "prefix": "nfpw-com",
+          "body": [
+            "import { baseComponent } from \"@components\";",
+            "import { Locator } from \"@playwright/test\";",
+            "",
+            "export class ${1:$TM_FILENAME_BASE} extends baseComponent {",
+            "  constructor(locator: Locator) {",
+            "    super(locator);",
+            "  }",
+            "",
+            "  $2",
+            "}"
+          ],
+          "description": "Create a new Playwright COM inside the current file"
+        },
+        "Create a Page Object Model (POM)": {
+          "scope": "typescript",
+          "prefix": "nfpw-pom",
+          "body": [
+            "import { basePage } from \"@pages\";",
+            "import { Page } from \"@playwright/test\";",
+            "",
+            "export class ${1:$TM_FILENAME_BASE} extends basePage {",
+            "  constructor(page: Page) {",
+            "    super(page);",
+            "  }",
+            "",
+            "  $2",
+            "}"
+          ],
+          "description": "Create a new Playwright POM inside the current file"
+        },
+        "COM public element": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpub",
+          "body": "public ${1:property} = this.${2:container}.${3:locator}($4)"
+        },
+        "COM private element": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpri",
+          "body": "private readonly ${1:property} = this.${2:container}.${3:locator}($4)"
+        },
+        "POM public element": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppub",
+          "body": "public ${1:property} = this.${2:page}.${3:locator}($4)"
+        },
+        "POM private element": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppri",
+          "body": "private ${1:property} = this.${2:page}.${3:locator}($4)"
+        },
+        "COM public method": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpub-met",
+          "body": ["public ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "COM private method": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpri-met",
+          "body": ["private ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "POM public method": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppub-met",
+          "body": ["public ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "POM private method": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppri-met",
+          "body": ["private ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "COM public async method": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpub-amet",
+          "body": ["public async ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "COM private async method": {
+          "scope": "typescript",
+          "prefix": "nfpw-cpri-amet",
+          "body": ["private async ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "POM public async method": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppub-amet",
+          "body": ["public async ${1:method}(${2}){", "  ${3}", "}"]
+        },
+        "POM private async method": {
+          "scope": "typescript",
+          "prefix": "nfpw-ppri-amet",
+          "body": ["private async ${1:method}(${2}){", "  ${3}", "}"]
+        }
+      }
+    },
+    "componentBase": {
+      "filename": "componentBase.ts",
+      "path": "./components",
+      "type": "file",
+      "payload": "import { Locator, Page } from \"@playwright/test\";\n\nexport class ComponentBase {\n  public container: Locator;\n  public page: Page;\n\n  constructor(container: Locator) {\n    this.container = container;\n    this.page = container.page();\n  }\n}\n"
+    },
+    "componentIndex": {
+      "filename": "index.ts",
+      "path": "./components",
+      "type": "file",
+      "payload": "export { ComponentBase } from './componentBase'"
+    },
+    "enumIndex": {
+      "filename": "index.ts",
+      "path": "./enum",
+      "type": "file",
+      "payload": ""
+    },
+    "fixturesCombined": {
+      "filename": "combined.ts",
+      "path": "./fixtures",
+      "type": "file",
+      "payload": "import { mergeExpects, mergeTests } from \"@playwright/test\";\nimport { test as Pages, expect as PagesExpect } from \"./pages\";\n\nexport const test = mergeTests(Pages);\nexport const expect = mergeExpects(PagesExpect);\n"
+    },
+    "fixturesData": {
+      "filename": "data.ts",
+      "path": "./fixtures",
+      "type": "file",
+      "payload": "import { test as testBase } from \"@playwright/test\";\nexport { expect } from \"@playwright/test\";\n\ntype Data = { example: string };\n\nexport const test = testBase.extend<Data>({});\n"
+    },
+    "fixturesPages": {
+      "filename": "pages.ts",
+      "path": "./fixtures",
+      "type": "file",
+      "payload": "export { expect } from \"@playwright/test\";\n\nimport { PageBase } from \"@pages\";\nimport { test as testBase } from \"./data\";\n\ntype Pages = {\n  example: PageBase\n};\n\nexport const test = testBase.extend<Pages>({});\n"
+    },
+    "modelsIndex": {
+      "filename": "index.ts",
+      "path": "./models",
+      "type": "file",
+      "payload": ""
+    },
+    "pagesBase": {
+      "filename": "pageBase.ts",
+      "path": "./pages",
+      "type": "file",
+      "payload": "import { Page } from \"@playwright/test\";\n\nexport class PageBase {\n  public page: Page;\n\n  constructor(page: Page) {\n    this.page = page;\n  }\n}\n"
+    },
+    "pagesIndex": {
+      "filename": "index.ts",
+      "path": "./pages",
+      "type": "file",
+      "payload": "export { PageBase } from './pageBase'"
+    },
+    "testsExample": {
+      "filename": "example.spec.ts",
+      "path": "./tests",
+      "type": "file",
+      "payload": "import {test, expect} from '@playwright/test'\n\ntest(\"Open Google\", async ({page}) => {\n    await page.goto(\"https://www.google.com\")\n    await expect(page).toHaveTitle(\"Google\")\n})"
+    },
+    "utilsHelper": {
+      "filename": "helpers.ts",
+      "path": "./utils",
+      "type": "file",
+      "payload": ""
+    },
+    "envExample": {
+      "filename": ".env.example",
+      "path": ".",
+      "type": "file",
+      "payload": ""
+    },
+    "gitignore": {
+      "filename": ".gitignore",
+      "path": ".",
+      "type": "file",
+      "payload": "node_modules/\n/test-results/\n/playwright-report/\n/blob-report/\n/playwright/.cache/\n.env"
+    },
+    "prettier config": {
+      "filename": ".prettierrc.config.js",
+      "path": ".",
+      "type": "ts",
+      "payload": "node_modules/\n/test-results/\n/playwright-report/\n/blob-report/\n/playwright/.cache/\n\n.env"
+    }
+  }
+}

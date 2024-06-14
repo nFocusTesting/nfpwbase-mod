@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": ["node", "inquirer"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}
