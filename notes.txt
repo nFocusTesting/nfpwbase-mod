@@ -1,0 +1,34 @@
+Ask if create new project or use current folder or update base project.
+    If create new project ->
+        Ask for project name ->
+            Create project folder and create all files and folders
+
+    If current folder -> 
+        If the folder is empty -> 
+            Use older name as project name
+            Create all files and folders
+
+        If folder not empty ->
+            If no package.json -> 
+
+    If update ->
+        check each file against previous version to look for differences
+        update as required
+
+
+
+Files to update
+    package.json
+    prettierrc.config.js
+    eslint.config.js
+    playwright.config.js
+    nfbaseReadme
+    tsconfig.json
+    code snippets (v1.1 onwards)
+        
+
+
+env add/remove
+    add to .env
+    add to .env.example
+    add to global.d.ts
