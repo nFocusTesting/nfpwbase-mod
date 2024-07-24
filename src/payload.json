@@ -1,249 +1,169 @@
 {
-  "versions": ["1.0", "1.1", "1.2"],
-  "1.0": {
-    "package.json": {
-      "path": ".",
-      "type": "json",
-      "payload": {
-        "devDependencies": {
-          "@eslint/js": "8.57.0",
-          "@playwright/test": "^1.44.0",
-          "@types/node": "^20.12.7",
-          "dotenv": "^16.4.5",
-          "eslint": "8.57.0",
-          "globals": "^15.1.0",
-          "typescript": "5.4.5",
-          "typescript-eslint": "^7.6.0"
-        },
-        "nfBaseVersion": "1.0.0",
-        "type": "module"
+  "folders": [
+    "./tests",
+    "./pages",
+    "./models",
+    "./helpers",
+    "./fixtures",
+    "./enums",
+    "./components",
+    "./.vscode"
+  ],
+  "versions": ["0.3.0"],
+  "payloads": {
+    "0.3.0": [
+      {
+        "filename": "tsconfig.json",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/tsconfig.json",
+        "path": ".//",
+        "type": "json",
+        "update": "patch",
+        "payload": "{\r\n  \"compilerOptions\": {\r\n    \"types\": [\"@playwright/test\", \"node\"],\r\n    \"baseUrl\": \".\",\r\n    \"paths\": {\r\n      \"@components/*\": [\"components/*\"],\r\n      \"@enums/*\": [\"enums/*\"],\r\n      \"@fixtures/*\": [\"fixtures/*\"],\r\n      \"@helpers/*\": [\"helpers/*\"],\r\n      \"@models/*\": [\"models/*\"],\r\n      \"@pages/*\": [\"pages/*\"]\r\n    }\r\n  }\r\n}\r\n"
+      },
+      {
+        "filename": "nfpwbase-README.md",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/README.md",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": "# nFocus Playwright base configuration project\r\nA repo to decide on informal standards for new Playwright projects created by nFocus SDETs\r\n\r\n## Contents\r\n- [nFocus Playwright base configuration project](#nfocus-playwright-base-configuration-project)\r\n  - [Contents](#contents)\r\n  - [Using this Repo Template](#using-this-repo-template)\r\n    - [Using GitHub](#using-github)\r\n    - [Using alternative Git repository](#using-alternative-git-repository)\r\n  - [Install into existing project](#install-into-existing-project)\r\n    - [npm modules](#npm-modules)\r\n    - [Files](#files)\r\n  - [VSCode extensions](#vscode-extensions)\r\n  - [Files](#files-1)\r\n    - [`eslint.config.js`](#eslintconfigjs)\r\n      - [Rules Documentation](#rules-documentation)\r\n    - [`.prettier.config.js`](#prettierconfigjs)\r\n      - [Rules Documentation](#rules-documentation-1)\r\n    - [`playwright.config.ts`](#playwrightconfigts)\r\n      - [Documentation](#documentation)\r\n    - [`tsconfig.json`](#tsconfigjson)\r\n      - [Documentation](#documentation-1)\r\n      - [`baseUrl`](#baseurl)\r\n      - [`paths` (Path Alias)](#paths-path-alias)\r\n  - [Folder Structure](#folder-structure)\r\n    - [`components`](#components)\r\n    - [`enums`](#enums)\r\n    - [`fixtures`](#fixtures)\r\n    - [`helpers`](#helpers)\r\n    - [`models`](#models)\r\n    - [`pages`](#pages)\r\n  - [Style Guide](#style-guide)\r\n    - [Identifiers](#identifiers)\r\n    - [Filenames](#filenames)\r\n    - [Code Style](#code-style)\r\n      - [Write Simple Code](#write-simple-code)\r\n      - [Guard Clauses](#guard-clauses)\r\n  - [Code Snippets](#code-snippets)\r\n  - [Release Notes](#release-notes)\r\n    - [Version 0.1](#version-01)\r\n    - [Version 0.2](#version-02)\r\n    - [Version 0.3](#version-03)\r\n\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Using this Repo Template\r\n### Using GitHub\r\n1. Open this repo on [Github](http://www.github.com/nfocustesting/nfpwbase)\r\n2. Click the green \"Use this template\" button in the top right hand corner of the screen\r\n   - If you don't see this button, you need to log into GitHub\r\n3. Select \"Create a new repository\"\r\n4. Select **Owner**\r\n5. Enter new repository name\r\n6. Select 'Public' or 'Private'\r\n7. Click 'Create repository'\r\n8. Clone repo to local machine\r\n9. Open repo in VSCode\r\n10. Run `npm install`\r\n\r\n\r\n### Using alternative Git repository\r\n\r\n1. Create a new repo with your host of choice\r\n2. Clone new repo to your local machine\r\n3. Open this repo on [Github](http://www.github.com/nfocustesting/nfpwbase)\r\n4. Click on '<> Code'\r\n5. Click 'Download ZIP'\r\n6. Unzip the project\r\n7. Copy files from downloaded project folder into cloned directory\r\n8. Commit new files to repo and push back to server\r\n9. Run `npm install`\r\n10. Close VSCode and reopen to apply new settings\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Install into existing project\r\n\\*Only do this with permission from the team leader.\\*\r\n### npm modules\r\nRun the following command to install the required npm modules:\r\n```bash\r\nnpm install -D @playwright/test @types/node @eslint/js@8.57.0 eslint@8.57.0 typescript@5.4.5 typescript-eslint dotenv globals\r\n```\r\n\r\nTypescript-ESLint currently requires specific npm package versions:\r\n   - eslint - 8.57.0\r\n   - @eslint/js - 8.57.0\r\n   - typescript - 5.4.5\r\n\r\n### Files\r\n\r\nDownload the following files and ***merge*** them into the project.\r\n- [`eslint.config.js`](#eslintconfigjs)\r\n- [`.prettier.config.js`](#prettierconfig)\r\n- [`playwright.config.js`](#playwrightconfig)\r\n- [`tsconfig.json`](#tsconfig)\r\n\r\nInside the package.json file add:\r\n```json\r\n  \"type\": \"module\",\r\n```\r\nto the root of the JSON object.\r\n\r\nYou will need to restart VSCode for all the changes to be made to the editor.\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## VSCode extensions\r\nThese extensions are required to allow VSCode to interact with the npm modules installed.\r\n- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)\r\n  - Typescript-ESLint requires the pre-release version (>v3.0.7) of this extension\r\n- [Playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)\r\n  - Recommend turning off the 'Show browser' option in the Playwright panel in the 'Testing' tab\r\n- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)\r\n  - You will need to set Prettier as the default `*.ts` formatter. This can be done by going to the VSCode settings UI and searching for `@id:editor.defaultFormatter @lang:typescript`.\r\n  - To initiate formatting you can use `shift` + `alt` + `F`.\r\n  - Alternatively search for `editor.formatOnSave` inside the Settings UI and check the box and it will then format the file whenever you press Save or `ctrl` + `S`\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Files\r\n\r\n- [`eslint.config.js`](#eslintconfigjs) - ESLint config\r\n- [`.prettier.config.js`](#prettierconfig) - Prettier config\r\n- [`playwright.config.js`](#playwrightconfig) - Playwright config\r\n- [`tsconfig.json`](#tsconfig) - Typescript config\r\n\r\n---\r\n\r\n### `eslint.config.js`\r\nUses the `typescript-eslint` package to allow `ESLint` to lint Typescript files. \r\n#### [Rules Documentation](https://typescript-eslint.io/rules)\r\nUse the link above to find new rules.\\\r\nUse `.prettier.config.js` for stylistic rules.\\\r\nThe following rules have been implemented.\r\n\r\n- `\"@typescript-eslint/no-floating-promises\": [\"error\"]`\r\n- `\"@typescript-eslint/restrict-template-expressions\": \"off\"`\r\n- `\"@typescript-eslint/no-base-to-string\": [\"warn\", { ignoredTypeNames: [\"Locator\", \"Date\"] }]`\r\n- `\"@/no-restricted-exports\": [\"error\", { \"restrictDefaultExports\": { \"direct\": true } }]`,\r\n\r\n---\r\n### `.prettier.config.js`\r\nUsed by the Prettier VSCode plugin to have consistant styling across all js/ts files.\r\n\r\n#### [Rules Documentation](https://prettier.io/docs/en/options)\r\nThe following rules have been implemented.\r\n\r\n- `tabWidth: 2`\r\n- `trailingComma: \"es5\"`\r\n- `experimentalTernaries: true`\r\n\r\n---\r\n### `playwright.config.ts`\r\n#### [Documentation](https://playwright.dev/docs/test-configuration)\r\n\r\n---\r\n### `tsconfig.json`\r\n#### [Documentation](https://www.typescriptlang.org/tsconfig)\r\n\r\n#### `baseUrl`\r\nSets the base directory to resolve non-relative module names.\\\r\nDefaults to `\".\"` (root folder).\\\r\n!!! DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING !!!\r\n!!! THIS IS NOT THE BASEURL FOR THE WEBSITE YOU ARE TESTING !!!\r\n\r\n#### `paths` (Path Alias)\r\nThis allows you to simplify your imports in a `.ts` file, so instead of \r\n```js\r\nimport Homepage from '../../pages/Homepage'\r\n```\r\nyou can write\r\n```js\r\nimport Homepage from '@pages/Homepage'\r\n```\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Folder Structure \r\n\r\n### `components`\r\n**Somewhere to store Component Object Models (COMs)**\r\n\r\nBy default, this folder contains a `BaseComponent` POM.\r\n\r\n### `enums`\r\n**Somewhere to store Enumerated objects (enums)**\r\n\r\n### `fixtures`\r\n**Somewhere to store fixtures**\r\n\r\nBy default this comes with three files: `combined.ts`, `data.ts`, and `pages.ts`. \r\n\r\n`pages.ts` imports `test` from `data.ts` to allow you to use test data inside your page fixtures.\r\n\r\n`combined.ts` is the file to import into your `*.spec.ts` files as this is the end point of all the fixtures. It uses the `mergeTest` and `mergeExpect` functions from Playwright so you can have multiple branches, i.e. an admin branch and a user branch each with their own data.\r\n\r\nAn example import into a spec file would be:\r\n```ts\r\nimport { test, expect } from '@fixtures/combined'\r\n```\r\n\r\n### `helpers`\r\n**Somewhere to store extra files such as helper functions**\r\n\r\n### `models`\r\n**Somewhere to store data models, interfaces, types**\r\n\r\n### `pages`\r\n**Somewhere to store Page Object Models (POMs)**\r\n\r\nBy default, this folder contains a `BasePage` POM.\r\n\r\n## Style Guide\r\n\r\nIt is recommended to read and follow the TypeScript style guide which can be found [here](https://ts.dev/style) but a brief summary can be found below.\r\n\r\n### Identifiers\r\n| Style                         | Identifier                                     |\r\n| ----------------------------- | ---------------------------------------------- |\r\n| `UpperCamelCase` (PascalCase) | class/interface/type/enum/decorator/parameters |\r\n| `lowerCamelCase` (DeCapped)   | variable/parameter/function/method/property    |\r\n| `CONSTANT_CASE`               | enum values                                    |\r\n\r\n### Filenames\r\n\r\nFilenames should be given in `kebab-case` (e.g. `messaging-thread-list-item.ts`) to give as much compatability as possible.\r\n\r\n### Code Style\r\n\r\n#### Write Simple Code\r\nTry to not write long fuctions/methods by breaking them down into shorter functions and composing them together.\r\n\r\n#### Guard Clauses\r\nWrite safer and easier to read code by using [Guard Clauses](https://www.youtube.com/watch?v=EumXak7TyQ0). This reduces the need for an `else` clause and makes your code easier to read and maintain.\r\n\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Code Snippets\r\n\r\nThere are several VSCode Code Snippets added to the project.\r\n\r\n - Scaffolding snippets\r\n   - `nfpw-com` - Scaffolds a new Component Object Model file.\r\n   - `nfpw-pom` - Scaffolds a new Page Object Model file.\r\n\r\nTo use:\r\n  1. Create a new file in the folder\r\n  2. Save with the name of the class you want to use\r\n  3. Open the file\r\n  4. Start typing the code snippet\r\n  5. Press 'Enter' to use\r\n\r\nOnce run, the curser will have selected the class name for easy editing. Pressing 'TAB' will move to the bottom of the class to start adding locators and methods\r\n\r\n- Property/Method helper snippets\r\n   - `nfpw-cpub` - Create a public property in a COM\r\n   - `nfpw-cpri` - Create a private property in a COM\r\n   - `nfpw-ppub` - Create a public property in a POM\r\n   - `nfpw-ppri` - Create a private property in a POM\r\n   - `nfpw-pub-met` - Create a public method\r\n   - `nfpw-pri-met` - Create a private method\r\n   - `nfpw-pub-amet` - Create a public async method\r\n   - `nfpw-pri-amet` - Create a private async method\r\n  \r\nProperties default to using `this.page.locator` for POMs and `this.container.locator` in COMs, provided by their respective base classes. TABbing through starts with the property name, then `page`/`container`, then locator strategy, and finally that locater itself.\r\n\r\nTabbing through methods start with the method name, then the arguments, then the body of the method.\r\n\r\n - Test snippets\r\n   - `nftest` - Creates new test at cursor\r\n   - `nftest-full` - Scaffolds new `*.spec.ts` file\r\n   - `nftestexpect-full` - Same as `nftest-full` plus imports `expect` from `@fixtures/combined`\r\n\r\n<div style=\"text-align: right\"><a href=\"#contents\">Top ⬆️</a></div>\r\n\r\n## Release Notes\r\n### Version 0.1\r\n - Initial Release\r\n\r\n### Version 0.2\r\n- Added [Code Snippets](#code-snippets)\r\n- Updated README instructions with extra links to documentation\r\n\r\n### Version 0.3\r\n- [Code Snippets](#code-snippets)\r\n  - Added Test snippets\r\n  - Removed redundent snippets\r\n- Added [Style Guide](#style-guide)\r\n- Updated VSCode ESLint extension version\r\n- Updated README.md\r\n  - General cleanup\r\n  - Removed Barrelling advice to make tests run quicker [More Info](https://dev.to/tassiofront/barrel-files-and-why-you-should-stop-using-them-now-bc4)"
+      },
+      {
+        "filename": "playwright.config.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/playwright.config.ts",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": "import { defineConfig, devices } from \"@playwright/test\";\r\nimport \"dotenv/config\";\r\n\r\n// eslint-disable-next-line @/no-restricted-exports\r\nexport default defineConfig({\r\n  testDir: \"./tests\",\r\n  fullyParallel: true,\r\n  forbidOnly: !!process.env.CI,\r\n  retries: process.env.CI ? 2 : 0,\r\n  workers: process.env.CI ? 1 : undefined,\r\n  reporter: \"html\",\r\n  use: {\r\n    trace: process.env.CI ? \"on-first-retry\" : \"on\",\r\n    headless: process.env.CI ? true : false,\r\n  },\r\n\r\n  projects: [\r\n    {\r\n      name: \"chromium\",\r\n      use: { ...devices[\"Desktop Chrome\"] },\r\n    },\r\n\r\n    // {\r\n    //   name: 'firefox',\r\n    //   use: { ...devices['Desktop Firefox'] },\r\n    // },\r\n  ],\r\n});\r\n"
+      },
+      {
+        "filename": "package.json",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/package.json",
+        "path": ".//",
+        "type": "json",
+        "update": "patch",
+        "payload": "{\r\n  \"name\": \"nfpwbase\",\r\n  \"version\": \"1.2.0\",\r\n  \"nfpw-version\": \"0.3.0\",\r\n  \"description\": \"\",\r\n  \"main\": \"index.js\",\r\n  \"scripts\": {},\r\n  \"keywords\": [],\r\n  \"author\": \"\",\r\n  \"license\": \"ISC\",\r\n  \"type\": \"module\",\r\n  \"devDependencies\": {\r\n    \"@eslint/js\": \"8.57.0\",\r\n    \"@playwright/test\": \"^1.44.0\",\r\n    \"@types/node\": \"^20.12.7\",\r\n    \"dotenv\": \"^16.4.5\",\r\n    \"eslint\": \"8.57.0\",\r\n    \"globals\": \"^15.1.0\",\r\n    \"typescript\": \"5.4.5\",\r\n    \"typescript-eslint\": \"^7.6.0\"\r\n  }\r\n}\r\n"
+      },
+      {
+        "filename": "global.d.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/global.d.ts",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": ""
+      },
+      {
+        "filename": "eslint.config.js",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/eslint.config.js",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": "// @ts-check\r\n\r\nimport eslint from \"@eslint/js\";\r\nimport globals from \"globals\";\r\nimport tseslint from \"typescript-eslint\";\r\n\r\nexport default tseslint.config(\r\n  eslint.configs.recommended,\r\n  ...tseslint.configs.recommendedTypeChecked,\r\n  {\r\n    files: [\"**/*.js\"],\r\n    ignores: [\"node_modules/\", \"playwright-report/\", \"test-results/\"],\r\n    ...tseslint.configs.disableTypeChecked,\r\n  },\r\n  {\r\n    files: [\"**/*.ts\"],\r\n    ignores: [\"node_modules/\", \"playwright-report/\", \"test-results/\"],\r\n    languageOptions: {\r\n      parserOptions: {\r\n        project: \"./tsconfig.json\",\r\n      },\r\n      globals: { ...globals.node },\r\n    },\r\n    rules: {\r\n      \"@/no-restricted-exports\": [\"error\", { \"restrictDefaultExports\": { \"direct\": true } }],\r\n      \"@typescript-eslint/no-floating-promises\": [\"error\"],\r\n      \"@typescript-eslint/restrict-template-expressions\": \"off\",\r\n      \"@typescript-eslint/no-base-to-string\": [\r\n        \"warn\",\r\n        { ignoredTypeNames: [\"Locator\", \"Date\"] },\r\n      ],\r\n    },\r\n  }\r\n);\r\n"
+      },
+      {
+        "filename": ".prettierrc.json",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/.prettierrc.json",
+        "path": ".//",
+        "type": "json",
+        "update": "patch",
+        "payload": "{\r\n  \"tabWidth\": 2,\r\n  \"trailingComma\": \"es5\",\r\n  \"experimentalTernaries\": true\r\n}\r\n"
+      },
+      {
+        "filename": ".gitignore",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/.gitignore",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": "node_modules/\r\n/test-results/\r\n/playwright-report/\r\n/blob-report/\r\n/playwright/.cache/\r\n\r\n.env"
+      },
+      {
+        "filename": ".env.example",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/.env.example",
+        "path": ".//",
+        "type": "file",
+        "update": "manual",
+        "payload": ""
+      },
+      {
+        "filename": "example.spec.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/tests/example.spec.ts",
+        "path": "./tests/",
+        "type": "file",
+        "update": "manual",
+        "payload": "import {test, expect} from '@playwright/test'\r\n\r\ntest(\"Open Google\", async ({page}) => {\r\n    await page.goto(\"https://www.google.com\")\r\n    await expect(page).toHaveTitle(\"Google\")\r\n})"
+      },
+      {
+        "filename": "base.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/pages/base.ts",
+        "path": "./pages/",
+        "type": "file",
+        "update": "manual",
+        "payload": "import { Page } from \"@playwright/test\";\r\n\r\nexport class BasePage {\r\n  public page: Page;\r\n\r\n  constructor(page: Page) {\r\n    this.page = page;\r\n  }\r\n}\r\n"
+      },
+      {
+        "filename": ".gitkeep",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/models/.gitkeep",
+        "path": "./models/",
+        "type": "file",
+        "update": "manual",
+        "payload": ""
+      },
+      {
+        "filename": ".gitkeep",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/helpers/.gitkeep",
+        "path": "./helpers/",
+        "type": "file",
+        "update": "manual",
+        "payload": ""
+      },
+      {
+        "filename": "pages.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/fixtures/pages.ts",
+        "path": "./fixtures/",
+        "type": "file",
+        "update": "manual",
+        "payload": "export { expect } from \"@playwright/test\";\r\n\r\nimport { BasePage } from \"@pages/base\";\r\nimport { test as testBase } from \"./data\";\r\n\r\ntype Pages = {\r\n  example: BasePage;\r\n};\r\n\r\nexport const test = testBase.extend<Pages>({});\r\n"
+      },
+      {
+        "filename": "data.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/fixtures/data.ts",
+        "path": "./fixtures/",
+        "type": "file",
+        "update": "manual",
+        "payload": "import { test as testBase } from \"@playwright/test\";\r\nexport { expect } from \"@playwright/test\";\r\n\r\ntype Data = { example: string };\r\n\r\nexport const test = testBase.extend<Data>({});\r\n"
+      },
+      {
+        "filename": "combined.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/fixtures/combined.ts",
+        "path": "./fixtures/",
+        "type": "file",
+        "update": "manual",
+        "payload": "import { mergeExpects, mergeTests } from \"@playwright/test\";\r\nimport { test as Pages, expect as PagesExpect } from \"./pages\";\r\n\r\nexport const test = mergeTests(Pages);\r\nexport const expect = mergeExpects(PagesExpect);\r\n"
+      },
+      {
+        "filename": ".gitkeep",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/enums/.gitkeep",
+        "path": "./enums/",
+        "type": "file",
+        "update": "manual",
+        "payload": ""
+      },
+      {
+        "filename": "base.ts",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/components/base.ts",
+        "path": "./components/",
+        "type": "file",
+        "update": "manual",
+        "payload": "import { Locator, Page } from \"@playwright/test\";\r\n\r\nexport class BaseComponent {\r\n  public container: Locator;\r\n  public page: Page;\r\n\r\n  constructor(container: Locator) {\r\n    this.container = container;\r\n    this.page = container.page();\r\n  }\r\n}\r\n"
+      },
+      {
+        "filename": "playwright.code-snippets",
+        "link": "https://github.com/nFocusTesting/nfpwbase/blob/main/.vscode/playwright.code-snippets",
+        "path": "./.vscode/",
+        "type": "file",
+        "update": "manual",
+        "payload": "{\r\n  \"nFocus Combined Test - Full\": {\r\n    \"prefix\": \"nftest-full\",\r\n    \"body\": [\r\n      \"import { test } from \\\"@fixtures/combined\\\";\",\r\n      \"\",\r\n      \"test.use({});\",\r\n      \"\",\r\n      \"test(\",\r\n      \"\\\"$1\\\",\",\r\n      \"{tag: [] },\",\r\n      \"asyc ({$2}) => {$3}\",\r\n      \");\"\r\n    ]\r\n  },\r\n  \"nFocus Combined Test\": {\r\n    \"prefix\": \"nftest\",\r\n    \"body\": [\"test(\", \"\\\"$1\\\",\", \"{tag: [] },\", \"asyc ({$2}) => {$3}\", \");\"]\r\n  },\r\n  \"nFocus Combined Test - Full with Expect\": {\r\n    \"prefix\": \"nftestexpect-full\",\r\n    \"body\": [\r\n      \"import { test, extpect } from \\\"@fixtures/combined\\\";\",\r\n      \"\",\r\n      \"test.use({});\",\r\n      \"\",\r\n      \"test(\",\r\n      \"\\\"$1\\\",\",\r\n      \"{tag: [] },\",\r\n      \"asyc ({$2}) => {$3}\",\r\n      \");\"\r\n    ]\r\n  },\r\n  \"Create a Component Object Model (COM)\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-com\",\r\n    \"body\": [\r\n      \"import { baseComponent } from \\\"@components\\\";\",\r\n      \"import { Locator } from \\\"@playwright/test\\\";\",\r\n      \"\",\r\n      \"export class ${1:$TM_FILENAME_BASE} extends baseComponent {\",\r\n      \"  constructor(locator: Locator) {\",\r\n      \"    super(locator);\",\r\n      \"  }\",\r\n      \"\",\r\n      \"  $2\",\r\n      \"}\"\r\n    ],\r\n    \"description\": \"Create a new Playwright COM inside the current file\"\r\n  },\r\n  \"Create a Page Object Model (POM)\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-pom\",\r\n    \"body\": [\r\n      \"import { basePage } from \\\"@pages\\\";\",\r\n      \"import { Page } from \\\"@playwright/test\\\";\",\r\n      \"\",\r\n      \"export class ${1:$TM_FILENAME_BASE} extends basePage {\",\r\n      \"  constructor(page: Page) {\",\r\n      \"    super(page);\",\r\n      \"  }\",\r\n      \"\",\r\n      \"  $2\",\r\n      \"}\"\r\n    ],\r\n    \"description\": \"Create a new Playwright POM inside the current file\"\r\n  },\r\n  \"COM public element\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-cpub\",\r\n    \"body\": \"public ${1:property} = this.${2:container}.${3:locator}($4)\"\r\n  },\r\n  \"COM private element\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-cpub\",\r\n    \"body\": \"public ${1:property} = this.${2:container}.${3:locator}($4)\"\r\n  },\r\n  \"POM public element\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-ppub\",\r\n    \"body\": \"public ${1:property} = this.${2:page}.${3:locator}($4)\"\r\n  },\r\n  \"POM private element\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-ppub\",\r\n    \"body\": \"public ${1:property} = this.${2:page}.${3:locator}($4)\"\r\n  },\r\n  \"Public method\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-pub-met\",\r\n    \"body\": [\"public ${1:method}(${2}){\", \"  ${3}\", \"}\"]\r\n  },\r\n  \"Private method\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-pri-met\",\r\n    \"body\": [\"private ${1:method}(${2}){\", \"  ${3}\", \"}\"]\r\n  },\r\n  \"Public async method\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-pub-amet\",\r\n    \"body\": [\"public async ${1:method}(${2}){\", \"  ${3}\", \"}\"]\r\n  },\r\n  \"Private async method\": {\r\n    \"scope\": \"typescript\",\r\n    \"prefix\": \"nfpw-pri-amet\",\r\n    \"body\": [\"private async ${1:method}(${2}){\", \"  ${3}\", \"}\"]\r\n  }\r\n}\r\n"
       }
-    }
-  },
-  "1.1": {},
-  "1.2": {
-    "playwright code snippets": {
-      "filename": "playwright.code-snippets",
-      "path": "./.vscode",
-      "type": "json",
-      "payload": {
-        "nFocus Combined Test - Full": {
-          "prefix": "nftest-full",
-          "body": [
-            "import { test } from \"@fixtures/combined\";",
-            "",
-            "test.use({});",
-            "",
-            "test(",
-            "\"$1\",",
-            "{tag: [] },",
-            "asyc ({$2}) => {$3}",
-            ");"
-          ]
-        },
-        "nFocus Combined Test": {
-          "prefix": "nftest",
-          "body": [
-            "test(",
-            "\"$1\",",
-            "{tag: [] },",
-            "asyc ({$2}) => {$3}",
-            ");"
-          ]
-        },
-        "nFocus Combined Test - Full with Expect": {
-          "prefix": "nftestexpect-full",
-          "body": [
-            "import { test, extpect } from \"@fixtures/combined\";",
-            "",
-            "test.use({});",
-            "",
-            "test(",
-            "\"$1\",",
-            "{tag: [] },",
-            "asyc ({$2}) => {$3}",
-            ");"
-          ]
-        },
-        "Create a Component Object Model (COM)": {
-          "scope": "typescript",
-          "prefix": "nfpw-com",
-          "body": [
-            "import { baseComponent } from \"@components\";",
-            "import { Locator } from \"@playwright/test\";",
-            "",
-            "export class ${1:$TM_FILENAME_BASE} extends baseComponent {",
-            "  constructor(locator: Locator) {",
-            "    super(locator);",
-            "  }",
-            "",
-            "  $2",
-            "}"
-          ],
-          "description": "Create a new Playwright COM inside the current file"
-        },
-        "Create a Page Object Model (POM)": {
-          "scope": "typescript",
-          "prefix": "nfpw-pom",
-          "body": [
-            "import { basePage } from \"@pages\";",
-            "import { Page } from \"@playwright/test\";",
-            "",
-            "export class ${1:$TM_FILENAME_BASE} extends basePage {",
-            "  constructor(page: Page) {",
-            "    super(page);",
-            "  }",
-            "",
-            "  $2",
-            "}"
-          ],
-          "description": "Create a new Playwright POM inside the current file"
-        },
-        "COM public element": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpub",
-          "body": "public ${1:property} = this.${2:container}.${3:locator}($4)"
-        },
-        "COM private element": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpri",
-          "body": "private readonly ${1:property} = this.${2:container}.${3:locator}($4)"
-        },
-        "POM public element": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppub",
-          "body": "public ${1:property} = this.${2:page}.${3:locator}($4)"
-        },
-        "POM private element": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppri",
-          "body": "private ${1:property} = this.${2:page}.${3:locator}($4)"
-        },
-        "COM public method": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpub-met",
-          "body": ["public ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "COM private method": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpri-met",
-          "body": ["private ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "POM public method": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppub-met",
-          "body": ["public ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "POM private method": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppri-met",
-          "body": ["private ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "COM public async method": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpub-amet",
-          "body": ["public async ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "COM private async method": {
-          "scope": "typescript",
-          "prefix": "nfpw-cpri-amet",
-          "body": ["private async ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "POM public async method": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppub-amet",
-          "body": ["public async ${1:method}(${2}){", "  ${3}", "}"]
-        },
-        "POM private async method": {
-          "scope": "typescript",
-          "prefix": "nfpw-ppri-amet",
-          "body": ["private async ${1:method}(${2}){", "  ${3}", "}"]
-        }
-      }
-    },
-    "componentBase": {
-      "filename": "componentBase.ts",
-      "path": "./components",
-      "type": "file",
-      "payload": "import { Locator, Page } from \"@playwright/test\";\n\nexport class ComponentBase {\n  public container: Locator;\n  public page: Page;\n\n  constructor(container: Locator) {\n    this.container = container;\n    this.page = container.page();\n  }\n}\n"
-    },
-    "componentIndex": {
-      "filename": "index.ts",
-      "path": "./components",
-      "type": "file",
-      "payload": "export { ComponentBase } from './componentBase'"
-    },
-    "enumIndex": {
-      "filename": "index.ts",
-      "path": "./enum",
-      "type": "file",
-      "payload": ""
-    },
-    "fixturesCombined": {
-      "filename": "combined.ts",
-      "path": "./fixtures",
-      "type": "file",
-      "payload": "import { mergeExpects, mergeTests } from \"@playwright/test\";\nimport { test as Pages, expect as PagesExpect } from \"./pages\";\n\nexport const test = mergeTests(Pages);\nexport const expect = mergeExpects(PagesExpect);\n"
-    },
-    "fixturesData": {
-      "filename": "data.ts",
-      "path": "./fixtures",
-      "type": "file",
-      "payload": "import { test as testBase } from \"@playwright/test\";\nexport { expect } from \"@playwright/test\";\n\ntype Data = { example: string };\n\nexport const test = testBase.extend<Data>({});\n"
-    },
-    "fixturesPages": {
-      "filename": "pages.ts",
-      "path": "./fixtures",
-      "type": "file",
-      "payload": "export { expect } from \"@playwright/test\";\n\nimport { PageBase } from \"@pages\";\nimport { test as testBase } from \"./data\";\n\ntype Pages = {\n  example: PageBase\n};\n\nexport const test = testBase.extend<Pages>({});\n"
-    },
-    "modelsIndex": {
-      "filename": "index.ts",
-      "path": "./models",
-      "type": "file",
-      "payload": ""
-    },
-    "pagesBase": {
-      "filename": "pageBase.ts",
-      "path": "./pages",
-      "type": "file",
-      "payload": "import { Page } from \"@playwright/test\";\n\nexport class PageBase {\n  public page: Page;\n\n  constructor(page: Page) {\n    this.page = page;\n  }\n}\n"
-    },
-    "pagesIndex": {
-      "filename": "index.ts",
-      "path": "./pages",
-      "type": "file",
-      "payload": "export { PageBase } from './pageBase'"
-    },
-    "testsExample": {
-      "filename": "example.spec.ts",
-      "path": "./tests",
-      "type": "file",
-      "payload": "import {test, expect} from '@playwright/test'\n\ntest(\"Open Google\", async ({page}) => {\n    await page.goto(\"https://www.google.com\")\n    await expect(page).toHaveTitle(\"Google\")\n})"
-    },
-    "utilsHelper": {
-      "filename": "helpers.ts",
-      "path": "./utils",
-      "type": "file",
-      "payload": ""
-    },
-    "envExample": {
-      "filename": ".env.example",
-      "path": ".",
-      "type": "file",
-      "payload": ""
-    },
-    "gitignore": {
-      "filename": ".gitignore",
-      "path": ".",
-      "type": "file",
-      "payload": "node_modules/\n/test-results/\n/playwright-report/\n/blob-report/\n/playwright/.cache/\n.env"
-    },
-    "prettier config": {
-      "filename": ".prettierrc.config.js",
-      "path": ".",
-      "type": "ts",
-      "payload": "node_modules/\n/test-results/\n/playwright-report/\n/blob-report/\n/playwright/.cache/\n\n.env"
-    }
+    ]
   }
 }

@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "target": "es2017",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "types": ["node", "inquirer"],
     "esModuleInterop": true,
     "resolveJsonModule": true

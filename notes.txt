@@ -26,3 +26,9 @@ Files to update
     tsconfig.json
     code snippets (v1.1 onwards)
         
+
+
+env add/remove
+    add to .env
+    add to .env.example
+    add to global.d.ts
